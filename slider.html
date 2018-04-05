@@ -1,0 +1,170 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<style>
+*{ margin:0 ; padding:0}
+ul{ margin:0; padding:0}
+.SliderContainer{ width:364px;/*margin:20px auto;*/ height:204px;  position: relative}
+.slidermainSec{overflow: hidden; position: relative}
+ul.sliderSec{position: relative}
+.sliderSec li{ list-style: none; float:left; }
+
+#pagination{position:absolute;  bottom:10px; z-index:999; transform:translateX(-50%);left:50%}
+#pagination span{background:#ccc; margin:2px; border-radius:10px; color:#000; font:12px/20px arial; cursor:pointer; height:20px; margin:5px; text-align:center; width:20px; display: block; float: left}
+#pagination span:hover{background:#f00; color:#fff} 
+#pagination span.Active{ background:#c00;color:#fff} 
+#pagination span.Activeff{background:#c00;color:#fff} 
+
+ 	
+#firstSlider .next { background-image: url(https://smedia2.intoday.in/oddnaari/1.0.6/resources/images/right-btn_p.png);  right: 0px;}
+#firstSlider .prev{ background-image: url(https://smedia2.intoday.in/oddnaari/1.0.6/resources/images/left-btn_p.png); left: 0px;}
+#firstSlider .next{ width: 32px; height: 35px; right:0; top: 48%; position: absolute;cursor: pointer}
+#firstSlider .prev{ width: 32px; height: 35px; left: 0; top: 48%; position: absolute;cursor: pointer}
+
+#totalLengthShow{ position: absolute; right:10px; top:10px; background:rgba(173, 0, 0, 0.5); height:50px; width:50px; border-radius:100%;font-size:20px; color:#fff;text-align: center}
+#totalLengthShow span{ line-height:50px; font-size:20px; color:#fff; }
+#totalLengthShow small{ line-height:50px; font-size:20px; color:#fff; }
+
+/*==========Second Slider=========*/
+#SecondSlider .next1 { background-image: url(https://smedia2.intoday.in/oddnaari/1.0.6/resources/images/right-btn_p.png);  right: 0px;}
+#SecondSlider .prev1{ background-image: url(https://smedia2.intoday.in/oddnaari/1.0.6/resources/images/left-btn_p.png); left: 0px;}
+#SecondSlider .next1{ width: 32px; height: 35px; right:0; top: 48%; position: absolute;cursor: pointer}
+#SecondSlider .prev1{ width: 32px; height: 35px; left: 0; top: 48%; position: absolute;cursor: pointer}
+
+#pagination1{position:absolute;  bottom:10px; z-index:999; transform:translateX(-50%);left:50%}
+#pagination1 span{background:#ccc; margin:2px; border-radius:10px; color:#000; font:12px/20px arial; cursor:pointer; height:20px; margin:5px; text-align:center; width:20px; display: block; float: left}
+#pagination1 span:hover{background:#f00; color:#fff} 
+#pagination1 span.Active{ background:#c00;color:#fff} 	
+	
+#totalLengthShow1{ position: absolute; right:10px; top:10px; background:rgba(173, 0, 0, 0.5); height:50px; width:50px; border-radius:100%;font-size:20px; color:#fff;text-align: center}
+#totalLengthShow1 span{ line-height:50px; font-size:20px; color:#fff; }
+#totalLengthShow1 small{ line-height:50px; font-size:20px; color:#fff; }
+#pagination1 span.Activeff{background:#c00;color:#fff} 	
+</style>
+
+</head>
+
+<body>
+
+
+<div class="SliderContainer">
+	<div class="slidermainSec" id="firstSlider">
+        <ul class="sliderSec">
+            <li><img src="https://smedia2.intoday.in/oddnaari/images/Photo_gallery/odd_364_082817051940.jpg" alt="" /></li>
+            <li><img src="https://smedia2.intoday.in/oddnaari/images/Photo_gallery/thumb_364_101517051801.jpg" alt="" /></li>
+            <li><img src="https://smedia2.intoday.in/oddnaari/images/Photo_gallery/colalge_364_092717011215.jpg" alt="" /></li>
+            <li><img src="https://smedia2.intoday.in/oddnaari/images/Photo_gallery/collage_364_091917011616.jpg" alt="" /></li>
+        </ul>
+        <div class="next"></div>
+        <div class="prev"></div>
+        <div id="pagination"></div>
+        <div id="totalLengthShow"><span></span>/<small></small></div>
+     </div>
+</div>
+
+
+<div class="SliderContainer">
+	<div class="slidermainSec" id="SecondSlider">
+        <ul class="sliderSec">
+            <li><img src="https://smedia2.intoday.in/oddnaari/images/Photo_gallery/odd_364_082817051940.jpg" alt="" /></li>
+            <li><img src="https://smedia2.intoday.in/oddnaari/images/Photo_gallery/thumb_364_101517051801.jpg" alt="" /></li>
+            <li><img src="https://smedia2.intoday.in/oddnaari/images/Photo_gallery/colalge_364_092717011215.jpg" alt="" /></li>
+            <li><img src="https://smedia2.intoday.in/oddnaari/images/Photo_gallery/collage_364_091917011616.jpg" alt="" /></li>
+        </ul>
+        <div class="next1"></div>
+        <div class="prev1"></div>
+        <div id="pagination1"></div>
+        <div id="totalLengthShow1"><span></span>/<small></small></div>
+      
+     </div>
+</div>
+
+
+ <script src="https://smedia2.intoday.in/oddnaari/1.0.17/resources/js/jquery-new.min.js"></script>
+<script>
+$("document").ready(function(e) {
+	$.fn.inslider = function(responsivecontainer,btnNext,btnPrev,pager,totalSlide ){
+		var width_sl = $('#'+responsivecontainer).width();
+		var count = 1;
+		var lenCount = 0;
+		var tthis = $(this);
+		var pagHtml = '';
+		var length_li = $(tthis).find("ul li").length;
+		
+		var totwidthsl = length_li*width_sl; 
+		tthis.find('ul').css({'width':totwidthsl});
+	
+		tthis.find('ul li').each(function(index,value){
+			$(this).css('width',width_sl);
+			pagHtml+='<span id="'+(index+1)+'">'+(index+1)+'</span>'
+		})
+		//Next
+		 $(btnNext).click(function(){
+				if(count >= length_li){
+					$(this).hide('slow');
+				}else if (count == length_li) {
+					count = 0;
+					$(totalSlide).find("span").text(count);
+				}
+				else{
+					 tthis.find('ul').animate({left:'-='+width_sl})
+					 count+=1; 
+					 lenCount+=1;
+					 $(btnPrev).show();
+					$(totalSlide).find("span").text(count);
+					
+					$(pager).find('span:eq('+lenCount+')').addClass("Activeff").siblings().removeClass("Activeff Active")
+				}
+				
+		})
+		//Prevt
+		 $(btnPrev).click(function(){
+				 if(count == 0){
+						$(this).hide();
+						count = 1;
+						$(totalSlide).find("span").text(count);
+					
+					}
+					else{
+						tthis.find('ul').animate({'left':'+='+width_sl})
+						count-=1;
+						lenCount-=1;
+						$(btnNext).show();
+						$(totalSlide).find("span").text(count);
+						
+						$(pager).find('span:eq('+lenCount+')').addClass("Activeff").siblings().removeClass("Activeff Active")
+						
+					}
+		})	
+		
+		//Pager 
+		$(pager).html(pagHtml);
+		$(pager).find('span:eq(0)').addClass("Active")
+		
+		$(pager).find('span').on('click',function(){
+			var currentCount = $(this).index();
+			$(this).addClass("Active").siblings().removeClass("Active")
+			//console.log(currentCount)
+			tthis.find('ul').animate({left: -(currentCount*width_sl)}, 500);
+		})
+			
+		//Total slide Show
+		
+		$(totalSlide).find("small").text(length_li);
+		$(totalSlide).find("span").text(count);
+	
+			
+	
+	}
+	$('#firstSlider').inslider('firstSlider','.next','.prev','#pagination','#totalLengthShow')
+	$('#SecondSlider').inslider('SecondSlider','.next1','.prev1','#pagination1','#totalLengthShow1')
+	
+});
+
+</script>
+
+
+</body>
+</html>
